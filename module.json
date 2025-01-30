@@ -1,0 +1,46 @@
+{
+  "id": "foundry-menacex",
+  "title": "COC - Menace X",
+  "description": "Adaptation de COC à Menace X",
+  "authors": [
+    {
+      "name": "Zakarik"
+    }
+  ],
+  "version": "0.2",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "12"
+  },
+  "esmodules": [
+    "menacex.js"
+  ],
+  "relationships": {
+    "requires": [
+        {
+            "id": "lib-wrapper",
+            "type": "module",
+            "compatibility": {
+                "minimum": "1",
+                "verified": "1.13.2.0"
+            }
+        }
+    ]
+  },
+  "languages": [
+    {
+        "lang": "fr",
+        "name": "French",
+        "path": "./lang/fr.json"
+    },    
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "./lang/fr.json"
+  }
+  ],
+  "url": "#{URL}#",
+  "manifest": "#{MANIFEST}#",
+  "download": "#{DOWNLOAD}#",
+  "changelog": ""
+}
