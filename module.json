@@ -7,7 +7,7 @@
       "name": "Zakarik"
     }
   ],
-  "version": "0.2",
+  "version": "#{VERSION}#",
   "compatibility": {
     "minimum": "11",
     "verified": "12"
