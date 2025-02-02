@@ -1,0 +1,153 @@
+div {
+    &.menacexbase {
+        section {
+            &.window-content {                
+                padding: 0px;
+                margin: 0px;
+            }
+        }
+        form {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: max-content;
+            grid-gap: 5px;
+            background-image:url(../../../../systems/coc/ui/coc/header.png);
+
+            div {
+                &.img {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    padding-left: 5px;
+                    margin-bottom: auto;
+
+                    span {
+                        font-family: Polentical;
+                        color: white;
+                        font-size: 30px;
+                        font-weight: 700;
+                        text-align: center;
+                    }
+                }
+
+                &.logo {    
+                    grid-column: 1 / 3;
+                    position: relative;
+                    margin-top: 30px;
+                    background-image: url(../../../../systems/coc/ui/coc/logo.png);
+                    background-position-x: center;
+                    background-position-y: bottom;
+                    background-repeat: no-repeat;
+                    background-size: 280px auto;
+                    min-height: 100px;
+                    height: 100px;
+                    max-height: 100px;
+                }
+
+                &.data {   
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: max-content;
+                    column-gap: 5px;
+                    height: calc(100% + 30px);
+                    padding: 40px 10px 10px 10px;
+                    border-top: 3px solid #caad27;
+                    border-left: 3px solid #caad27;
+                    background: white;
+                    margin-top: -30px;
+
+                    label {
+                        &.name,
+                        &.level {
+                            display: grid;
+                            width: 312.5px;
+                            grid-template-columns: 104.17px 1fr;
+                            height: 26px;
+                            align-items: center;
+
+                            span {
+                                text-align: center;
+                                text-transform: uppercase;
+                                background: black;
+                                height: 100%;
+                                display: grid;
+                                align-items: center;
+                                color: white;
+                                font-family: 'MyriadProBold', sans-serif;
+                                padding-top: 2px;
+                            }
+
+                            input {
+                                width: 100%;
+                                border: 0px;
+                                border-radius: 0px;
+                                background: rgba(0, 0, 0, 0.1);
+                                box-shadow: none;
+                                text-align: center;
+                            }
+                        }
+
+                        &.level {
+                            margin-left: auto;
+                        }
+                    }
+
+                    div {
+                        &.gridheader {
+                            background:black;
+                        }
+
+                        &.voies {
+                            grid-column: 1 / 3;
+                        }
+
+                        &.item-name {
+                            cursor: inherit;
+                        }
+                    }
+
+                    li {      
+                        &.inventory-header {
+                            div {
+                                &.item-controls-3 {
+                                    display: grid;
+                                }
+                            }
+                        }
+
+                        &.item.flexrow {
+                            padding: 0px 1px;
+                        }
+                    }
+
+                    input {
+                        color: #4b4a44;
+                        font-family: var(--font-primary);
+                        font-size: 14px;
+                        background: transparent;
+                        border: 0px;
+                        box-shadow: none;
+                        padding: 0px;
+                    }
+
+                    textarea {
+                        height: calc(100% - 2px);
+                        font-family: var(--font-primary);
+                        font-size: 12px;
+                        box-shadow: none;
+                        background: transparent;
+                        border: 0px;
+                        padding: 0px;
+                        color: #7a7971;
+                    }
+                }
+            }
+
+            img {
+                &.profile-img {
+                    object-fit: contain;
+                    border: 0px;
+                }
+            }
+        }
+    }
+}

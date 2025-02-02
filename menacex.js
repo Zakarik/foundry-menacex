@@ -1,7 +1,30 @@
+import { MenaceXBaseDataModel } from "./data/models/base-data-model.mjs";
+import { MenaceXBaseActorSheet } from "./data/sheet/base-sheet.mjs";
+
 const MODULE_ID = 'foundry-menacex'; // Change this ID!
 
-Hooks.once('ready', () => { 
-  console.warn(CONFIG);
+Hooks.on('init', () => {
+  Object.assign(CONFIG.Actor.dataModels, {
+    "foundry-menacex.menacexbase":MenaceXBaseDataModel
+  });
+  Actors.registerSheet("foundry-menacex", MenaceXBaseActorSheet, {types: ["foundry-menacex.menacexbase"], makeDefault: false});
+
+  libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeAttacks", actor, "MIXED");
+  libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeMods", actor, "MIXED");
+  libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeDef", actor, "MIXED");
+  //libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeXP", actor, "MIXED");
+  libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeAttributes", actor, "MIXED");
+
+  
+  Handlebars.registerHelper('findCapacity', function (data, actor) {
+    console.warn(actor.actor.system)
+    const capacities = actor.data.system.capacities.findIndex(itm => itm.id === data.id);
+
+    return capacities;
+  });
+});
+
+Hooks.once('ready', async () => { 
   libWrapper.register(MODULE_ID, "CONFIG.Actor.sheetClasses.character['coc.CoCActorSheet'].cls.prototype._render", actorSheet_render, "WRAPPER");
   libWrapper.register(MODULE_ID, "CONFIG.Actor.sheetClasses.npc['coc.CoCNpcSheet'].cls.prototype._render", actorSheet_render, "WRAPPER");
   libWrapper.register(MODULE_ID, "CONFIG.Actor.sheetClasses.encounter['coc.CoCEncounterSheet'].cls.prototype._render", encounterSheet_render, "WRAPPER");
@@ -129,3 +152,7 @@ async function encounterSheet_render(wrapped, ...args) {
   });
   sectionDEF.insertAdjacentHTML('afterend', mainDefPsi);
 };
+
+async function actor(wrapped, ...args) {
+  if(this.type !== 'foundry-menacex.menacexbase') await wrapped(...args);
+}

@@ -1,0 +1,132 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <div class="logo">
+        
+    </div>
+    <div class="img">
+        <span>{{data.name}}</span>
+        <img class="profile-img" src="{{data.img}}" data-edit="img" title="{{data.name}}" />
+    </div>
+    <div class="data">
+        <label class="name">
+            <span>{{localize "COC.details.name"}}</span>
+            <input type="text" name="name" value="{{data.name}}" />
+        </label>
+        
+        <label class="level">
+            <span>{{ localize 'COC.attributes.level.label' }}</span>
+            <input type="number" name="system.level.value" value="{{data.system.level.value}}" />
+        </label>
+
+
+        <div class="voies">
+            {{#if (isEmpty paths)}}
+                <p class="empty">{{localize "COC.notification.noPathSelected"}}</p>
+            {{else}}
+                <div class="path-list">
+                    <div class="grid">
+                        <div class="gridrow grid-6col-150 gridheader">
+                            <div>&nbsp;</div>
+                            <div class="gridcell gridcell-sm bg-default">1</div>
+                            <div class="gridcell gridcell-sm bg-default">2</div>
+                            <div class="gridcell gridcell-sm bg-default">3</div>
+                            <div class="gridcell gridcell-sm bg-default">4</div>
+                            <div class="gridcell gridcell-sm bg-default">5</div>
+                        </div>
+                        {{#each paths as |path id|}}
+                            <div class="gridrow grid-6col-150 item" data-item-id="{{path._id}}" data-item-type="item" data-pack="paths">
+                                <div class="gridcell left gridheader color-default no-border">
+                                    <a class="item-edit ellipsis" style="width: 100%; text-align: left" title="{{path.name}}">{{path.name}}</a>&nbsp;
+                                    <span class="path-controls item" data-item-id="{{path._id}}" style="padding-right:5px;"><a class="item-control item-delete" title='{{localize "COC.ui.deleteItem"}}'><i class="fas fa-times"></i></a></span>
+                                </div>
+                                {{#each path.system.capacities as |capacity id|}}
+                                    <div class="gridcell gridcell-sm item capacity left color-default no-wrap" data-item-id="{{capacity._id}}" data-item-type="item" data-pack="capacities" data-path-id="{{path._id}}" data-uuid="{{capacity.sourceId}}">
+                                        {{#if capacity.data.checked}}
+                                            <a class="capacity-control capacity-checked" title="{{capacity.name}}"><i class="fas fa-square"></i></a>&nbsp;
+                                            <a class="capacity-control item-edit ellipsis">{{capacity.name}}</a>
+                                        {{else}}
+                                        <a class="capacity-control capacity-unchecked" title="{{capacity.name}}"><i class="far fa-square"></i>&nbsp;<a class="capacity-control item-edit ellipsis">{{capacity.name}}</a>
+                                        {{/if}}
+                                    </div>
+                                {{/each}}
+                            </div>
+                        {{/each}}
+                    </div>
+                    <hr/>
+                    <div class="row flexrow">
+                        <div class="flex1 left">
+                            <h3>{{localize "COC.ui.activeCapacities"}}</h3>
+                        </div>
+                        <div class="flex1 right {{#if (isNegative actor.system.xp.value)}}red{{/if}}">
+                            <span class="field-label">{{localize "COC.ui.CapacityPoints"}} {{actor.system.xp.value}}/{{actor.system.xp.max}}</span>
+                            <input name="system.xp.value" type="hidden" value="{{actor.system.xp.value}}" data-dtype="Number"/>
+                            <input name="system.xp.max" type="hidden" value="{{actor.system.xp.max}}" data-dtype="Number"/>
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+            
+            {{#if (equals capacities.count 0)}}
+                <p class="empty">{{localize "COC.notification.noCapacitySelected"}}</p>
+            {{else}}
+                {{#each capacities.collections as |collection id|}}
+                    {{#if (gt collection.items.length 0)}}
+                        <ol class="inventory-list" data-tab="capacities" data-category="{{collection.id}}" data-path-id="{{collection.id}}">
+                            <li class="inventory-header flexrow">
+                                <h3 class="item-name flexrow">{{collection.label}}</h3>
+                                <div class="item-detail">{{localize "COC.ui.rank"}}</div>
+                                <div class="item-detail">L</div>
+                                <div class="item-detail">S</div>
+                                {{#if @root.editable}}
+                                    <div class="item-controls-3">
+                                    </div>
+                                {{/if}}
+                            </li>
+                            <ol class="item-list">
+                                {{#each collection.items as |capacity id|}}
+                                    <li class="item flexrow" data-item-id="{{capacity._id}}" data-item-type="item">
+                                        <div class="item-name flexrow">
+                                            <div class="item-image" style="background-image: url('{{capacity.img}}')"></div>
+                                            {{#if capacity.std}}
+                                            <input type="text" name="system.capacities.{{findCapacity capacity ../../this}}.name" value="{{capacity.name}}" />
+                                            {{else}}
+                                            <h4>{{capacity.name}}</h4>
+                                            {{/if}}
+                                        </div>
+                                        <div class="item-detail">{{#if (or capacity.system.rank capacity.std)}}{{capacity.system.rank}}{{/if}}</div>
+                                        <div class="item-detail">{{#if capacity.system.limited}}L{{/if}}</div>
+                                        <div class="item-detail">{{#if capacity.system.spell}}&#10033;{{/if}}</div>
+                                        {{#if (and @root.editable (not capacity.std))}}
+                                            <div class="item-controls-3">
+                                                <a class="item-control item-to-chat" title='{{localize "COC.ui.sendItemToChat"}}'><i class="fas fa-comments"></i></a>
+                                                <a class="item-control item-edit" title='{{localize "COC.ui.editItem"}}'><i class="fas fa-edit"></i></a>
+                                                <a class="item-control item-delete" title='{{localize "COC.ui.deleteItem"}}'><i class="fas fa-trash"></i></a>
+                                            </div>
+                                        {{/if}}
+                                        {{#if (and @root.editable capacity.std)}}
+                                            <div class="item-controls-3"></div>
+                                        {{/if}}
+                                        <div class="item-summary">
+                                            {{#if capacity.std}}
+                                                <input type="hidden" name="system.capacities.{{findCapacity capacity ../../this}}.id" value="{{capacity.id}}" />
+                                                <input type="hidden" name="system.capacities.{{findCapacity capacity ../../this}}.img" value="{{capacity.img}}" />
+                                                <input type="hidden" name="system.capacities.{{findCapacity capacity ../../this}}.std" value="{{capacity.std}}" />
+                                                <input type="hidden" name="system.capacities.{{findCapacity capacity ../../this}}.system.rank" value="{{capacity.system.rank}}" />
+                                                <textarea name="system.capacities.{{findCapacity capacity ../../this}}.system.description">{{capacity.system.description}}</textarea>
+                                            {{else}}
+                                                {{{capacity.system.description}}}
+                                            {{/if}}
+                                            <div class="item-properties">                                    
+                                                {{#if capacity.system.spell}}<span class="tag">{{localize "COC.ui.spell"}}</span>{{/if}}
+                                                {{#if capacity.system.limited}}<span class="tag">{{localize "COC.ui.limited"}}</span>{{/if}}
+                                            </div>
+                                        </div>
+                                    </li>
+                                {{/each}}
+                            </ol>
+                        </ol>
+                    {{/if}}
+                {{/each}}
+            {{/if}}
+        </div>
+    </div>
+</form>

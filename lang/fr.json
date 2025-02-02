@@ -1,7 +1,15 @@
 {
+    "TYPES":{
+        "Actor":{
+            "foundry-menacex":{
+                "menacexbase":"QG"
+            }
+        }
+    },
     "MENACEX":{
         "pt":"Points de Tensions",
         "pt-short":"PT",
-        "def-short":"DEF PSI"
+        "def-short":"DEF PSI",
+        "niveau":"Niveau {rank}"
     }
 }
