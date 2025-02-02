@@ -10,13 +10,18 @@
         <label class="name">
             <span>{{localize "COC.details.name"}}</span>
             <input type="text" name="name" value="{{data.name}}" />
-        </label>
-        
+        </label>        
         <label class="level">
             <span>{{ localize 'COC.attributes.level.label' }}</span>
             <input type="number" name="system.level.value" value="{{data.system.level.value}}" />
         </label>
 
+        <label></label>
+
+        <label class="level etude">
+            <span>{{ localize 'MENACEX.pe' }}</span>
+            <input type="number" name="system.pe.value" value="{{data.system.pe.value}}" min="0" />
+        </label>
 
         <div class="voies">
             {{#if (isEmpty paths)}}

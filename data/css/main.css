@@ -38,7 +38,7 @@ div.menacexbase form div.logo {
 div.menacexbase form div.data {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: max-content;
+  grid-template-rows: max-content max-content;
   column-gap: 5px;
   height: calc(100% + 30px);
   padding: 40px 10px 10px 10px;
@@ -50,7 +50,7 @@ div.menacexbase form div.data {
 div.menacexbase form div.data label.name, div.menacexbase form div.data label.level {
   display: grid;
   width: 312.5px;
-  grid-template-columns: 104.17px 1fr;
+  grid-template-columns: 115px 1fr;
   height: 26px;
   align-items: center;
 }
@@ -72,6 +72,9 @@ div.menacexbase form div.data label.name input, div.menacexbase form div.data la
   background: rgba(0, 0, 0, 0.1);
   box-shadow: none;
   text-align: center;
+}
+div.menacexbase form div.data label.etude {
+  border-top: 1px solid white;
 }
 div.menacexbase form div.data label.level {
   margin-left: auto;
@@ -101,7 +104,7 @@ div.menacexbase form div.data input {
   padding: 0px;
 }
 div.menacexbase form div.data textarea {
-  height: calc(100% - 2px);
+  height: 70px;
   font-family: var(--font-primary);
   font-size: 12px;
   box-shadow: none;

@@ -46,7 +46,7 @@ div {
                 &.data {   
                     display: grid;
                     grid-template-columns: 1fr 1fr;
-                    grid-template-rows: max-content;
+                    grid-template-rows: max-content max-content;
                     column-gap: 5px;
                     height: calc(100% + 30px);
                     padding: 40px 10px 10px 10px;
@@ -60,7 +60,7 @@ div {
                         &.level {
                             display: grid;
                             width: 312.5px;
-                            grid-template-columns: 104.17px 1fr;
+                            grid-template-columns: 115px 1fr;
                             height: 26px;
                             align-items: center;
 
@@ -84,6 +84,10 @@ div {
                                 box-shadow: none;
                                 text-align: center;
                             }
+                        }
+
+                        &.etude {
+                            border-top: 1px solid white;;
                         }
 
                         &.level {
@@ -130,7 +134,7 @@ div {
                     }
 
                     textarea {
-                        height: calc(100% - 2px);
+                        height: 70px;
                         font-family: var(--font-primary);
                         font-size: 12px;
                         box-shadow: none;

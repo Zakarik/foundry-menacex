@@ -10,6 +10,7 @@
         "pt":"Points de Tensions",
         "pt-short":"PT",
         "def-short":"DEF PSI",
-        "niveau":"Niveau {rank}"
+        "niveau":"Niveau {rank}",
+        "pe":"Points d'Étude"
     }
 }

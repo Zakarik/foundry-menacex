@@ -4,7 +4,10 @@ export class MenaceXBaseDataModel extends foundry.abstract.TypeDataModel {
 
         return {
             level:new SchemaField({
-                value:new NumberField({initial:1})
+                value:new NumberField({initial:0})
+            }),
+            pe:new SchemaField({
+                value:new NumberField({initial:0})
             }),
             xp:new SchemaField({
                 value:new NumberField({initial:2}),
@@ -35,7 +38,9 @@ export class MenaceXBaseDataModel extends foundry.abstract.TypeDataModel {
         return this.items.filter(itm => itm.type === 'path');
     }
 
-    prepareBaseData() {}
+    prepareBaseData() {
+        
+    }
 
     prepareDerivedData() {}
 }

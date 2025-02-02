@@ -12,12 +12,11 @@ Hooks.on('init', () => {
   libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeAttacks", actor, "MIXED");
   libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeMods", actor, "MIXED");
   libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeDef", actor, "MIXED");
-  //libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeXP", actor, "MIXED");
+  libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeXP", actorXP, "MIXED");
   libWrapper.register(MODULE_ID, "CONFIG.Actor.documentClass.prototype.computeAttributes", actor, "MIXED");
 
   
   Handlebars.registerHelper('findCapacity', function (data, actor) {
-    console.warn(actor.actor.system)
     const capacities = actor.data.system.capacities.findIndex(itm => itm.id === data.id);
 
     return capacities;
@@ -155,4 +154,36 @@ async function encounterSheet_render(wrapped, ...args) {
 
 async function actor(wrapped, ...args) {
   if(this.type !== 'foundry-menacex.menacexbase') await wrapped(...args);
+}
+
+async function actorXP(wrapped, ...args) {
+  if(this.type === 'foundry-menacex.menacexbase') {
+    const actorData = args[0];
+    let items = actorData.items
+    let lvl = actorData.system.level.value
+    let pe = actorData.system.pe.value;
+    const alert = actorData.system.alert
+
+    const profile = this.getProfile(actorData.items)
+
+    let currxp = this.getCurrentXP(items)
+    const maxxp = profile && profile.system.bonuses.xp ? (2 * lvl + profile.system.bonuses.xp)+pe : (2 * lvl)+pe
+
+    // UPDATE XP
+    actorData.system.xp.max = maxxp
+    actorData.system.xp.value = maxxp - currxp
+
+    if (maxxp - currxp < 0) {
+      const diff = currxp - maxxp
+      alert.msg = diff == 1 ? `Vous avez dépensé ${diff} point de capacité en trop !` : `Vous avez dépensé ${diff} points de capacité en trop !`
+      alert.type = "error"
+    } else if (maxxp - currxp > 0) {
+      const diff = maxxp - currxp
+      alert.msg = diff == 1 ? `Il vous reste ${diff} point de capacité à dépenser !` : `Il vous reste ${diff} points de capacité à dépenser !`
+      alert.type = "info"
+    } else {
+      alert.msg = null
+      alert.type = null
+    }
+  } else await wrapped(...args);
 }
