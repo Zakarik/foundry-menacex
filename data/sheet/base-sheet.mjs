@@ -5,7 +5,7 @@ export class MenaceXBaseActorSheet extends ActorSheet {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["hp", "sheet", "actor", "menacexbase"],
+      classes: ["hp", "coc", "sheet", "actor", "menacexbase"],
       template: "modules/foundry-menacex/data/templates/base-sheet.html",
       width: 1200,
       height: 720,
